@@ -1,0 +1,17 @@
+#+TITLE: Cmatrix
+
+This command line application is written in C, using the /curses/ terminal UI library. It is heavily inspired by another project of the same name: =abishekvashok/cmatrix=.
+
+[[./cmatrix.png]]
+
+
+* Installation & Usage
+
+#+begin_src sh
+
+git clone https://github.com/alexander-neville/cmatrix.git
+cd cmatrix/src
+make
+./a.out
+
+#+end_src

@@ -7,7 +7,7 @@
 #include "../includes/display.h"
 #include "../includes/matrix.h"
 
-#define DELAY 50000L
+#define DELAY 75000
 
 int main( int argc, char **argv ){
     if (!initialise_display()) {
