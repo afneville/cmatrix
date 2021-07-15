@@ -8,9 +8,18 @@ WINDOW * terminal = NULL;
 int width;
 int height;
 
-int intensities[MAX_INTENSITY + 1] = {1,2,2,3,3,3,4,4,4,4,4,5,3,6};
+int intensity[BRIGHTEST + 1] = {1,2,2,2,3,3,3,4,4,4,4,4,5,3,6};
 
-void define_colours() {}
+void define_colours() {
+    // set up 8 colours
+    for (int i = 0; i < 8; i++) {
+        init_pair(i + 1, i, COLOR_BLACK);
+    }
+    // set up shades of green
+    for (int i = 0; i < 8; i++) {
+        init_color(i, 0, i*200, 0);
+    }
+}
 
 bool initialise_display() {
 	/* struct winsize size; */
@@ -40,8 +49,8 @@ void destroy_display() {
 void display_matrix() {
     for (int x = 0; x < X; x++) {
         for (int y = 0; y < Y; y++) {
-            int intensity = matrix[x][y].brightness;
-            color_set(intensities[intensity], NULL);
+            int brightness = matrix[x][y].brightness;
+            color_set(intensity[brightness], NULL);
             mvaddch(y, x, matrix[x][y].symbol);
         }
     }

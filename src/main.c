@@ -7,21 +7,19 @@
 #include "../includes/display.h"
 #include "../includes/matrix.h"
 
-#define ITERATIONS 300
 #define DELAY 50000L
 
 int main( int argc, char **argv ){
-
     if (!initialise_display()) {
         return EXIT_FAILURE;
     }
     initialise_matrix();
 
-    for (int i = 0; i < ITERATIONS; i++) {
+    bool condition = true;
+    while (condition == true) {
         update_matrix();
         display_matrix();
         usleep(DELAY);
     }
     return EXIT_SUCCESS;
-
 }

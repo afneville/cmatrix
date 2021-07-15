@@ -8,35 +8,37 @@
 #include "../includes/matrix.h"
 
 cell matrix[X][Y];
-droplet droplets[total_droplets];
+point points[total_points];
 
-void initialise_droplets() {
-    for (int i=0; i < total_droplets; i ++) {
-        droplets[i].active = false;
+void initialise_points() {
+    for (int i=0; i < total_points; i ++) {
+        points[i].active = false;
     }
 }
 
-void update_droplets() {
-    for (int i = 0; i < total_droplets; i ++) {
-        if (droplets[i].active) {
-            matrix[droplets[i].x][droplets[i].y].brightness = MAX_INTENSITY;
-        }
-        if (++droplets[i].y >= Y -1) {
-            droplets[i].active = false;
-        }
-    }
-}
-
-void add_droplets() {
-    for (int i = 0; i < total_droplets; i ++) {
-        if (!droplets[i].active) {
-            if ((double) rand() / (double) RAND_MAX > 0.5) {
-                 droplets[i].x = rand() % X; // random x position
-                 droplets[i].y = 0; // begin at the top
+void add_points() {
+    for (int i = 0; i < total_points; i ++) {
+        if (!points[i].active) {
+            if ((double) rand() / (double) RAND_MAX > 0.95) {
+                 points[i].active = true;
+                 points[i].x = rand() % X; // random x position
+                 points[i].y = 0; // begin at the top
             }
         }
     }
 }
+
+void update_points() {
+    for (int i = 0; i < total_points; i ++) {
+        if (points[i].active) {
+            matrix[points[i].x][points[i].y].brightness = BRIGHTEST;
+        }
+        if (++points[i].y >= Y - 1) {
+            points[i].active = false;
+        }
+    }
+}
+
 
 void initialise_matrix() {
     for (int x = 0; x < X; x++) {
@@ -45,18 +47,18 @@ void initialise_matrix() {
             matrix[x][y].brightness = 0;
         }
     }
-    initialise_droplets();
+    initialise_points();
 }
 
 void update_matrix() {
 
-    add_droplets();
-    update_droplets();
+    add_points();
+    update_points();
     // randomly change all characters 
 
     for (int x = 0; x < X; x++) {
         for (int y = 0; y < Y; y++) {
-            matrix[x][y].symbol = 'X'; //TODO randomize this
+            matrix[x][y].symbol = 33 + rand()%75;
             // decrement brightness
             if (matrix[x][y].brightness > 0) {
                 matrix[x][y].brightness--; // cells fade away
